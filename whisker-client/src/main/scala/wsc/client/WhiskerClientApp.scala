@@ -47,7 +47,9 @@ def httpClient: Resource[IO, (Client[IO], WSClient[IO])] = {
     EmberClientBuilder
       .default[IO]
       .withTLSContext(tlsContext)
-      .withHttp2
+      // TODO - Websockets are getting auto-upgraded to http2. Websockets can't be negotiated
+      //        over http2, so this line has to stay out until the bug in ember-client is fixed.
+      //.withHttp2
       .buildWebSocket
   }
 }
